@@ -12,7 +12,7 @@ This dashboard has the purpose to be a extension on the BakedinBiobakey WUI. Thi
 
 The most important to let this application work is to change the pathway in the file. So scroll trough the app.R file and change the pathways that are relevant for your setup.
 
-Secondly it is important that the login that connects with the database is the same as you have used in the https://github.com/GitMasterBart/BakedInBiobakery application. 
+Secondly it is important that the login that connects with the database is the same as you have used in the [BakedinBiobakery](https://github.com/GitMasterBart/BakedInBiobakery). 
 
 
 
