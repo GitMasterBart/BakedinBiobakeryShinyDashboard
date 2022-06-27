@@ -4,7 +4,7 @@
 
 ### About:
 
-This dashboard has the purpose to be a extension on the BakedinBiobakey WUI. This tool is created to facilitate the Biobakery Human3.0 tool (Beghini et al., 2021)[^1]. It takes the output directly out a MySQL based database. These output is can be found trough the side panel the user needs to choice their name and research. If there are results of this research than the Bio-bakery-Maaslin3.0 tool (Beghini et al., 2021)[^2] can be start. Because the calculations will take a wile a waiting screen will pop-up. After the tool is finished, the user can choice from the slides witch batch of box plots he/she wants to see.
+This dashboard has the purpose to be a extension on the BakedinBiobakey WUI. This tool is created to facilitate the Biobakery Human3.0 tool (Beghini et al., 2021)[^1]. It takes the output directly out a MySQL based database. These output is can be found trough the side panel the user needs to choice their name and research. If there are results of this research than the Bio-bakery-Maaslin2 tool (Beghini et al., 2021)[^2] can be start. Because the calculations will take a wile a waiting screen will pop-up. After the tool is finished, the user can choice from the slides witch batch of box plots he/she wants to see.
 
 
 
