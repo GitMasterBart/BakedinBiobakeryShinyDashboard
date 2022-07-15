@@ -1,4 +1,13 @@
 # BakedinBiobakeryShinyDashboard
+*Contact:*
+
+*Author: Bart Engels*
+<br>
+*Website: www.bartengels.eu*
+<br>
+*Email: b.engels@bioinf.nl*
+<br>
+*Version: v1*
 
 ![Flowchart application](static/img/dashboard.png)
 
@@ -19,4 +28,4 @@ Secondly it is important that the login that connects with the database is the s
 
 
 
-[^1]: Beghini, F., McIver, L. J., Blanco-Míguez, A., Dubois, L., Asnicar, F., Maharjan, S., Mailyan, A., Manghi, P., Scholz, M., Thomas, A. M., Valles-Colomer, M., Weingart, G., Zhang, Y., Zolfo, M., Huttenhower, C., Franzosa, E. A., & Segata, N. (2021). Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with biobakery 3. ELife, 10. <https://doi.org/10.7554/eLife.65088>
+[^1]: Beghini, F., McIver, L. J., Blanco-M??guez, A., Dubois, L., Asnicar, F., Maharjan, S., Mailyan, A., Manghi, P., Scholz, M., Thomas, A. M., Valles-Colomer, M., Weingart, G., Zhang, Y., Zolfo, M., Huttenhower, C., Franzosa, E. A., & Segata, N. (2021). Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with biobakery 3. ELife, 10. <https://doi.org/10.7554/eLife.65088>
