@@ -1,7 +1,6 @@
 ## Only run this example in interactive R sessions
 library(RMySQL)
 library(Maaslin2)
-library(vegan)
 library(tidyverse)
 
 if(!require('shinyjs')) {
@@ -165,8 +164,8 @@ if (interactive()){
         
         results = read.delim(paste0(path,"output_data_", project_name, "/all_results.tsv"), header = T)
         
-        treatment_res = results %>% filter(metadata == "treatment") %>% filter(qval <= 0.1)
-        timepoint_res = results %>% filter(metadata == "timepoint") %>% filter(qval <= 0.1)
+        treatment_res = results %>% filter(metadata == "V1") %>% filter(qval <= 0.1)
+        timepoint_res = results %>% filter(metadata == "V2") %>% filter(qval <= 0.1)
         interaction_res = results %>% filter(metadata == "interaction") %>% filter(qval <= 0.1)
         
         
@@ -208,19 +207,14 @@ if (interactive()){
           select(-output_type)
         
         req(input$file1)
-        # 
         df <- read.csv(input$file1$datapath,
                        header = T,
                        sep = ";", #input$sep,
                        quote = "" #input$quote
         )
         df <- as.data.frame(df, col = F)
-        # 
-        # 
         data_wide <- merge(df, subset_genefamilie, by="sample")
-        # 
         write.csv(as.data.frame(data_wide), file="~/Desktop/BakedinBiobakeryDashboard/metadata2.csv")
-        
         return(data_wide)
         
       } ,  options = list(
@@ -232,7 +226,7 @@ if (interactive()){
         data =
           input_data %>%
           select(-ends_with("unclassified")) %>%
-          select(-sample, -treatment, -run, -timepoint) %>%
+          select(-sample, -V1, -V3, -V2) %>%
           rename_all(., ~str_replace_all(., pattern = "_.*", "")) %>%
           as.data.frame(row.names = input_data$sample)
         
@@ -240,10 +234,9 @@ if (interactive()){
         metadata =
           input_data %>%
           as.data.frame(row.names = input_data$sample) %>%
-          select(sample:timepoint) %>%
-          mutate(interaction = as.factor(paste0(treatment, "_", timepoint)))
-        # 
-        
+          select(sample:V2) %>%
+          mutate(interaction = as.factor(paste0(V1, "_", V2)))
+    
         withProgress(message = 'Making plot', value = 0.7, {
           # Number of times we'll go through the loop
           n <- 100
@@ -256,17 +249,14 @@ if (interactive()){
               input_metadata = metadata,
               output = paste0(path, "output_data_", {project_name}),
               analysis_method = "LM",
-              fixed_effects = c("treatment",
-                                "timepoint",
-                                
-                                
+              fixed_effects = c("V1",
+                                "V2",
                                 "interaction"), # interaction dummy made for treatment (i=2) and timepoint (j=2)
               normalization = "none",
               max_significance = 0.1)}
           
           
           Sys.sleep(0.1)
-          # }
           
           
         })
@@ -285,8 +275,8 @@ if (interactive()){
         
         results = read.delim(paste0("~/Desktop/BakedinBiobakeryDashboard/","output_data_", project_name, "/all_results.tsv"), header = T)
         
-        treatment_res = results %>% filter(metadata == "treatment") %>% filter(qval <= 0.1)
-        timepoint_res = results %>% filter(metadata == "timepoint") %>% filter(qval <= 0.1)
+        treatment_res = results %>% filter(metadata == "V1") %>% filter(qval <= 0.1)
+        timepoint_res = results %>% filter(metadata == "V2") %>% filter(qval <= 0.1)
         interaction_res = results %>% filter(metadata == "interaction") %>% filter(qval <= 0.1)
         
         
@@ -301,7 +291,7 @@ if (interactive()){
         data =
           input_data %>%
           select(-ends_with("unclassified")) %>%
-          select(-sample, -treatment, -run, -timepoint) %>%
+          select(-sample, -V1, -V2, -V3) %>%
           rename_all(., ~str_replace_all(., pattern = "_.*", "")) %>%
           as.data.frame(row.names = input_data$sample)
         
@@ -310,9 +300,9 @@ if (interactive()){
           data %>%
           as_tibble(rownames = "sample") %>% 
           pivot_longer(-sample, names_to = "feature", values_to = "expression_cpm") %>% 
-          separate(sample, into = c("a" ,"treatment", "run", "timepoint", "b", "c"), sep = "_") %>%
-          mutate(groups = as.factor(paste0(treatment, "_", timepoint))) %>% 
-          select(treatment, run, timepoint, groups) %>% 
+          separate(sample, into = c("a" ,"V1", "V3", "V2", "b", "c"), sep = "_") %>%
+          mutate(groups = as.factor(paste0(V1, "_", V2))) %>% 
+          select(V1, V3, V2, groups) %>% 
           distinct() %>% 
           group_by(groups) %>% 
           dplyr::summarise(n = n())
@@ -341,10 +331,10 @@ if (interactive()){
           data %>% 
           as_tibble(rownames = "sample") %>%
           pivot_longer(-sample, names_to = "feature", values_to = "expression_cpm") %>%
-          separate(sample, into = c("a" ,"treatment", "run", "timepoint", "b", "c"), sep = "_") %>%
+          separate(sample, into = c("a" ,"V1", "V3", "V2", "b", "c"), sep = "_") %>%
           mutate(feature = str_replace(feature, "-", ".")) %>%
           filter(feature %in% results_sig$feature) %>%
-          mutate(groups = as.factor(paste0(treatment, "_", timepoint))) %>%
+          mutate(groups = as.factor(paste0(V1, "_", V2))) %>%
           # filter(feature == "AKBLIG.RXN" | feature == "ACETATEKIN.RXN" ) %>% 
           arrange(feature) %>% 
           slice(as.numeric(unlist(new_list[input$sli]))) %>% # take only top n
@@ -400,12 +390,3 @@ if (interactive()){
       
     })
 }
-
-
-
-
-
-#
-# 
-
-
