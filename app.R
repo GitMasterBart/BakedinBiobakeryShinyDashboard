@@ -1,4 +1,6 @@
-## Only run this example in interactive R sessions
+# Author : Bart Engels
+# date : 03-07-2022
+# version : V1
 library(RMySQL)
 library(Maaslin2)
 library(tidyverse)
